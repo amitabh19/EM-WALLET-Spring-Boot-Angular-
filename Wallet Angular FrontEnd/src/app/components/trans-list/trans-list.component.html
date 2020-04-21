@@ -1,0 +1,28 @@
+<div class="container">
+    <table class="table table-hover">
+      <thead>
+          <tr>
+            <th>Number</th>
+            <th>TXN Id</th>
+            <th>Amount</th>
+            <th>Transaction Time</th>
+            <th>Recivers Name</th>
+            <th>Recivers MobileNo</th>
+            <th>Updated Balance</th>
+            <th>Transaction Type</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of trans; index as i;">
+          <td>{{ i+1 }}</td>
+          <td>{{ t.txnId }}</td>
+          <td>{{ t.amount }}</td>
+          <td>{{ t.tTime }}</td>
+          <td>{{ getName(t.recieverId) }}</td>
+          <td>{{ getMob(t.recieverId) }}</td>
+          <td>{{ t.updatedPersonBal }}</td>
+          <td>{{ t.tType}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

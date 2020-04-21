@@ -1,0 +1,20 @@
+
+<form >
+    <div class="form group">
+        <label for="balance">available balance:</label>
+        <input type="number" name="balance" class="form-control" [(ngModel)]="user.balance" disabled>
+    </div>
+    <div class="form group">
+        <label for="amount">amount to withdraw:</label>
+        <input type="number" name="amount" class="form-control" [(ngModel)]="amount">
+    </div>
+
+    <div class="form group">
+        <input type="submit" value="save" class="btn btn-success" (click)="processForm()">
+    </div>
+    <div class="form group">
+        <p> {{error}} </p>
+        <p>{{success}}</p>
+    </div>
+</form>
+{{amount}}

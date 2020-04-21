@@ -1,0 +1,39 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+        <tr>
+          <th>User Id</th>
+          <th>User Name</th>
+          <th>Mobile No</th>
+          <th>EmailId</th>
+          <th>Account Number</th>
+          <th>DOB</th>
+          <th>Balance</th>
+          <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr >
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.mobileNo }}</td>
+        <td>{{ user.emailId}}</td>
+        <td>{{ user.accNo }}</td>
+        <td>{{ user.dob }}</td>
+        <td>{{ user.balance }}</td>
+        <td>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click) = "deleteAccount()">Delete</button>
+          <button (click) = "updateUser(user)">Edit</button>
+          <button (click) = "SendMoney()">Send Money</button>
+         <button (click) = "depositMoney()">Deposit Money</button>
+          <button (click) = "withdraw()" name="withdraw">Withdraw</button>
+          <button (click) = "translist()" name="translist">Show Transaction List</button>
+
+     
+</div>

@@ -1,0 +1,20 @@
+<div class="container">
+    <form (ngSubmit)="processForm()">
+        <div class="form group">
+            <label for="mobileNo">Mobile number</label>
+            <input type="text" name="mobileNo" class="form-control" [(ngModel)]="user.mobileNo">
+        </div>
+        <div class="form group">
+            <label for="email">Email Id</label>
+            <input type="email" name="email" class="form-control" [(ngModel)]="user.emailId">
+        </div>
+        <div class="form group">
+            <label for="text">Name</label>
+            <input type="text" name="name" class="form-control" [(ngModel)]="user.name">
+        </div>
+
+        <div class="form group">
+            <input type="submit" value="save" class="btn btn-success">
+        </div>
+    </form>
+</div>

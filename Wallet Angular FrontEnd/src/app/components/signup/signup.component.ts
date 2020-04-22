@@ -74,11 +74,14 @@ export class SignupComponent implements OnInit {
   this.user.emailId=email;
 
   //console.log(this.user);
-  this.userService.createUser(this.user).subscribe(x => console.log(x));
+  //this.userService.addCustomer(this.user).subscribe(x => console.log(x));
+  this.userService.addCustomer(this.user).subscribe(x => console.log(x));
+
   //console.log(this.user);
   console.log("inserted");
   this.users.push(this.user);
-  
+  this.userService.getUserById(this.user.id).subscribe(x => this.user=x);
+  console.log(this.user.accNo);
   //this.router.navigate(['au']);
   //console.log(this.users);   
     

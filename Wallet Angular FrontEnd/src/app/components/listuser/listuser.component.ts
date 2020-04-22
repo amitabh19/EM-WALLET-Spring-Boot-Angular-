@@ -53,9 +53,7 @@ export class ListuserComponent implements OnInit {
 
   newUser()
   {
-    let user = new User();
-    this.userService.setter(user);
-    this.router.navigate(['/op']);
+    this.router.navigate(['/sign']);
   }
 
 

@@ -3,6 +3,7 @@ import { User } from 'src/app/user';
 import { UserService } from 'src/app/shared_service/user.service';
 import { Router } from '@angular/router';
 import { Form, FormGroupName } from '@angular/forms';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,9 @@ export class SignupComponent implements OnInit {
   accountBool:Boolean= true;
   phoneBool:Boolean=true;
   userBool:Boolean=true;
-
+  emailBool:Boolean=true;
+  mobile:string;
+  user1 = new User();
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit() {
@@ -45,7 +48,7 @@ export class SignupComponent implements OnInit {
     else if(c.emailId == email){
       console.log("Email Number Already Taken");
       valid = false;
-      this.accountBool=false;
+      this.emailBool=false;
       break;
     }
     
@@ -72,19 +75,19 @@ export class SignupComponent implements OnInit {
   this.user.password=password;
   this.user.dob=dob;
   this.user.emailId=email;
+  this.mobile=mobileNo;
 
-  //console.log(this.user);
-  //this.userService.addCustomer(this.user).subscribe(x => console.log(x));
   this.userService.addCustomer(this.user).subscribe(x => console.log(x));
-
+  //this.userService.setter(this.user);
   //console.log(this.user);
   console.log("inserted");
-  this.users.push(this.user);
-  this.userService.getUserById(this.user.id).subscribe(x => this.user=x);
-  console.log(this.user.accNo);
-  //this.router.navigate(['au']);
-  //console.log(this.users);   
-    
+  //timeout(3000);
+  //this.users.push(this.user);
+  //this.userService.getUserById(this.user.id).subscribe(x => this.user=x);
+  
+  this.userService.username = this.user.username;
+  
+  this.router.navigate(['au']);
     }
     else{
       console.log("Not Inserted")

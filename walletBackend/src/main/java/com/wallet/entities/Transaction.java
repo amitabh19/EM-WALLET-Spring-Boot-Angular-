@@ -8,21 +8,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Transaction {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String txnId;	
+	private String txnId;
 	private double amount;
 	private LocalDateTime tTime;
-	
+
 	private String tType;
-	
+
 	private long senderId;
 	private long recieverId;
 	private double updatedPersonBal;
-    
-	public Transaction() {    
+
+	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -163,6 +163,4 @@ public class Transaction {
 		return true;
 	}
 
-	
-	
 }

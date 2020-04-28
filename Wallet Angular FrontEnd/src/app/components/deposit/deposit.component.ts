@@ -49,9 +49,16 @@ export class DepositComponent implements OnInit {
       ) 
       //this.user = this.userService.getter();
       this.success = "transaction successful";    
-      this.error = "user not found or insufficient balance";
-      this.success = "transaction successful";
+      
   }
+  refresh()
+  {
+    
+    this.userService.setter(this.user);
+    this.router.navigate(['uops']);
+
+  }
+
 
 
 }

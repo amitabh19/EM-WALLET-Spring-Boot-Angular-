@@ -15,12 +15,14 @@ export class UserOpsComponent implements OnInit {
   password:string;
   balance:string;
   user = new User();
-  
+  usr = new User();
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit() {
 
-      this.user = this.userService.getter();
+    
+      this.usr = this.userService.getter();
+      this.userService.getUserById(this.usr.id).subscribe(x => this.user=x);
     }
     deleteAccount()
     {

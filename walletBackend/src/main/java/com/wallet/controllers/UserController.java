@@ -37,27 +37,9 @@ public class UserController {
 	@Autowired
 	private TransactionRepository transactionRepository;
 
-	@GetMapping("/test")
-	public String test() {
-		LocalDate d = LocalDate.now();
-		Set<Transaction> t = new HashSet<Transaction>();
-		// new Person(emailId, mobileNo, name, balance, dob, accNo, username, password,
-		// transactions)
-		/*
-		 * Person p = new Person("amitabh19101998@gmail.com", "7550172933",
-		 * "Amitabh Saxena", 24000.0, d, "AS7373", "am10i", "73747576", t); Person p1 =
-		 * new Person("arjun@gmail.com", "85758288", "Arjun Saxena", 14000.0, d,
-		 * "AS7374", "arj07", "9394959899", t);
-		 * 
-		 * userRepository.save(p); userRepository.save(p1); userRepository.save(p2);
-		 */
-		userRepository
-				.save(new Person("tes2@tes.com", "78992111", "test2", 5000.0, d, "Accoo", "uname", "pass1234", t));
-		return "done";
-	}
-
 	@GetMapping("/test1")
 	public String test1() {
+		//test transaction
 		LocalDateTime d = LocalDateTime.now();
 		Person p1 = userRepository.getOne((long) 3);
 		Person p2 = userRepository.getOne((long) 1);
@@ -77,18 +59,6 @@ public class UserController {
 		return "transaction success";
 	}
 
-	/*
-	 * @GetMapping("/test2") public String test2() { LocalDate d = LocalDate.now();
-	 * Person p1 = userRepository.getOne((long) 1); Person p2 =
-	 * userRepository.getOne((long) 3); //transaction from p1 to p2 for 500.0
-	 * p1.setBalance(p1.getBalance()-500.0); p2.setBalance(p2.getBalance()+500.0);
-	 * Transaction t1 = new Transaction(500.0, d, "debit", p2.getId(),
-	 * p1.getBalance()); Transaction t2 = new Transaction(500, d, "credit",
-	 * p1.getId(), p2.getBalance()); p1.addTransaction(t1); p2.addTransaction(t2);
-	 * 
-	 * userRepository.save(p1); userRepository.save(p2); return
-	 * "transaction success"; }
-	 */
 	@GetMapping("/users")
 	public List<Person> getUsers() {
 		System.out.println(userRepository.findAll().size());
@@ -97,7 +67,6 @@ public class UserController {
 
 	@GetMapping("/trans")
 	public List<Transaction> getTrans() {
-		// System.out.println(userRepository.findAll().size());
 		return transactionRepository.findAll();
 	}
 
@@ -120,11 +89,11 @@ public class UserController {
 		Person p2 = userRepository.getOne(rid);
 		p1.setBalance(p1.getBalance() - amount);
 		p2.setBalance(p2.getBalance() + amount);
-		String d1 = d.toString();
-		String d2 = d1.replace(":", "");
-		String d3 = d2.replace("-", "");
-		String d4 = d3.replace(".", "");
-		String txnId = "TX" + d4;
+		String temp_d1 = d.toString();
+		String temp_d2 = temp_d1.replace(":", "");
+		String temp_d3 = temp_d2.replace("-", "");
+		String temp_d4 = temp_d3.replace(".", "");
+		String txnId = "TX" + temp_d4;
 		Transaction t = new Transaction(txnId, amount, d, "debit", p1.getId(), p2.getId(), p1.getBalance());
 		p1.addTransaction(t);
 		userRepository.save(p1);
@@ -193,7 +162,7 @@ public class UserController {
 	@PostMapping("/addCustomer")
 	public Person addCustomer(@RequestBody Person c) {
 
-		String s1 = c.getName().charAt(0)+ c.getName().charAt(1) +LocalDate.now().toString();
+		String s1 = c.getName().charAt(0) + c.getName().charAt(1) + LocalDate.now().toString();
 		String d2 = s1.replace(":", "");
 		String d3 = d2.replace("-", "");
 		String d4 = d3.replace(".", "");

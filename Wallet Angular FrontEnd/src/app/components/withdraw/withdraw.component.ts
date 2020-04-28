@@ -34,19 +34,32 @@ export class WithdrawComponent implements OnInit {
 
   processForm()
   {
+    if(this.amount<=this.user.balance)
+    {
       let t = new Trans();
       t.sid = this.user.id;
       t.rid = this.usr.id;
       t.amount = this.amount;
       this.userService.with(t).subscribe( x => this.error = x.toString());
-      this.userService.getUsers().subscribe((data: any[])=>{
-        console.log(data);
-        this.users = data;
-  
-      }
-      ) 
+      
       //this.user = this.userService.getter();
-      this.success = "transaction successful";    
+      this.success = "transaction successful";
+       
+      //this.userService.setter(this.user);
+      console.log(this.user.balance);
+
+    }
+    else{
+      this.success = "insufficient balance";
+    }   
+  }
+
+  refresh()
+  {
+    
+    this.userService.setter(this.user);
+    this.router.navigate(['uops']);
+
   }
 
 }

@@ -64,5 +64,13 @@ export class TransactionComponent implements OnInit {
       this.router.navigate(['trans']);
     }
   }
+  refresh()
+  {
+    
+    this.userService.setter(this.user);
+    this.router.navigate(['uops']);
+
+  }
+
   
 }

@@ -1,6 +1,5 @@
 package com.wallet.entities;
 
-
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -27,30 +26,29 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "emailId", unique = true)
 	private String emailId;
 	@Column(name = "mobileNo", unique = true)
 	private String mobileNo;
-	private String name;  
+	private String name;
 	@Min(value = 0)
 	private double balance;
 	private LocalDate dob;
 	private String accNo;
 	@Column(name = "username", unique = true)
 	private String username;
-	  
+
 	@Size(min = 8)
 	private String password;
-	
-	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Transaction> transactions;
 
 	public Person() {
 		// TODO Auto-generated constructor stub
 	}
 
-	 
 	public Person(String emailId, String mobileNo, String name, @Min(0) double balance, LocalDate dob, String accNo,
 			String username, @Size(min = 8) String password, Set<Transaction> transactions) {
 		super();
@@ -65,189 +63,85 @@ public class Person {
 		this.transactions = transactions;
 	}
 
-
 	public long getId() {
 		return id;
 	}
-
-
-
-
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-
-
-
-
 	public String getEmailId() {
 		return emailId;
 	}
-
-
-
-
-
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 
-
-
-
-
-
 	public String getMobileNo() {
 		return mobileNo;
 	}
-
-
-
-
-
 
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
-
-
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
-
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
-
-
-
 	public double getBalance() {
 		return balance;
 	}
-
-
-
-
-
 
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
-
-
-
-
-
 	public LocalDate getDob() {
 		return dob;
 	}
-
-
-
-
-
 
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
-
-
-
-
-
 	public String getAccNo() {
 		return accNo;
 	}
-
-
-
-
-
 
 	public void setAccNo(String accNo) {
 		this.accNo = accNo;
 	}
 
-
-
-
-
-
 	public String getUsername() {
 		return username;
 	}
-
-
-
-
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
-
-
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
-
-
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-
-
-
-
 	public Set<Transaction> getTransactions() {
 		return transactions;
 	}
 
-
-
-
-
-
 	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-
-
-
-
-
-
-	
-
 
 	@Override
 	public int hashCode() {
@@ -266,11 +160,6 @@ public class Person {
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
-
-
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -324,11 +213,6 @@ public class Person {
 		return true;
 	}
 
-
-
-
-
-
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", name=" + name + ", balance="
@@ -336,11 +220,8 @@ public class Person {
 				+ ", transactions=" + transactions + "]";
 	}
 
-	public void addTransaction(Transaction t)
-	{
+	public void addTransaction(Transaction t) {
 		transactions.add(t);
 	}
-	
-	
 
 }

@@ -1,4 +1,9 @@
 <div class="container">
+    <h4>Login to use EM Wallet</h4>  
+    <div *ngIf="tusername!=null" class="alert alert-success" role="alert">
+        Signup successful login to continue. <br>
+        Login to know your generated account number.
+      </div>
     <form>
   
         <div class="form group">
@@ -12,9 +17,13 @@
         </div>
   
         <div class="form group">
-            <input type="submit" value="save" class="btn btn-success" (click)="processForm()">
+            <input type="submit" value="Login" class="btn btn-success" (click)="processForm()">
         </div>
+
+        <div *ngIf="error!=null" class="alert alert-danger" role="alert">
+            {{error}}
+          </div>
+        
     </form>
-    {{username}}
-    {{password}}
+    
   </div>

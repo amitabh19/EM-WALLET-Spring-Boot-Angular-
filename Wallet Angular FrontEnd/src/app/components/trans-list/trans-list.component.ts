@@ -22,7 +22,7 @@ export class TransListComponent implements OnInit {
     this.user=this.userService.getter();
     this.userService.getTransById(this.user.id).subscribe(x => {this.trans=x;console.log(this.trans);} );
     this.userService.getUsers().subscribe((data: any[])=>{this.users = data;}) 
-    
+        
   }
 
   getName(id:Number)
@@ -35,4 +35,21 @@ export class TransListComponent implements OnInit {
     this.use = this.users.find(x => x.id == id);
     return this.use.mobileNo;
   }
+
+  sortTime()
+  {
+    this.trans.sort((n1,n2) => {
+      if (n1.tTime > n2.tTime) {
+          return 1;
+      }
+  
+      if (n1.tTime < n2.tTime) {
+          return -1;
+      }
+  
+      return 0;
+  });
+    
+  }
 }
+

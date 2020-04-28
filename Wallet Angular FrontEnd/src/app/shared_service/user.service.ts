@@ -22,6 +22,7 @@ export class UserService {
     })
   }*/
   private user = new User();
+  username:string;
   private headers = new HttpHeaders({'Content-Type':'application/json'});
   private options = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
@@ -53,6 +54,12 @@ export class UserService {
     
     return this.http.get<User[]>(this.baseUrl+'/users');
   }
+
+  getUsers2(): Promise<any>
+  {
+  return this.http.get(this.baseUrl+'/users').toPromise();
+  }
+
   getTransById(id:number):Observable<Transaction[]>
   {
     return this.http.get<Transaction[]>(this.baseUrl+'/trans/'+id);

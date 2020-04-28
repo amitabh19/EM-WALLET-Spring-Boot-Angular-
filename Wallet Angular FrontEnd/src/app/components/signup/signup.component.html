@@ -1,5 +1,4 @@
 
- {{user.name}}  {{user.mobileNo}}  {{user.accNo}}  {{user.dob}}  {{user.balance}}  {{user.emailId}} {{user.username}} {{user.password}} 
 <div class="moneyTransfer">
     
   <div class="container col-md-5 offset-md-3 transfer">    
@@ -16,6 +15,7 @@
         <label class="form-label">Enter the Customer Email:</label>
         <input type="email" class="form-control" ngModel name="email" #email2="ngModel" required [class.is-invalid]="email2.invalid && email2.touched">
         <small [class.d-none]="email2.valid || email2.untouched" class="text-danger">Email is Mandatory</small>
+        <small [class.d-none]="emailBool" class="text-danger">Email ID already linked with another Wallet</small>
       </div>
 
       <div class="form-group">
@@ -30,7 +30,7 @@
   
       <div class="form-group">
         <label class="form-label">Enter the Initial Balance:</label>
-        <input type="number" class="form-control" ngModel name="amount" #amount2="ngModel" required  [class.is-invalid]="amount2.invalid && amount2.touched">
+        <input type="number" class="form-control" ngModel name="amount" #amount2="ngModel"   [class.is-invalid]="amount2.invalid && amount2.touched" required>
         <small [class.d-none]="amount2.valid || amount2.untouched" class="text-danger">Amount is Mandatory</small>
       </div>
   
@@ -42,7 +42,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">DOB:</label>
-        <input max="2020-04-20" class="form-control" type="date" ngModel name="dob" #dob2="ngModel" [class.is-invalid]="dob2.invalid && dob2.touched"> 
+        <input max="2020-04-20" class="form-control" type="date" ngModel name="dob" #dob2="ngModel" [class.is-invalid]="dob2.invalid && dob2.touched" required> 
       </div>
   
       <div class="form-group">

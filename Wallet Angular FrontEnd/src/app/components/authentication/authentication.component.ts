@@ -11,24 +11,34 @@ import { Router } from '@angular/router';
 export class AuthenticationComponent implements OnInit {
 
   users: User[];
+  usr = new User();
   username: string;
   password: string;
+  error:string;
   user = new User();
+  user1 = new User();
+  tusername:string;
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
 
+    this.tusername = this.userService.username;
     this.userService.getUsers().subscribe((data: any[]) => {
-      console.log(data);
       this.users = data;
 
     })
+    
   }
 
   processForm() {
     this.user = this.users.find(x => x.username == this.username);
+    
     if (this.username == "admin" && this.password == "admin") {
       this.router.navigate(['lu']);
+    }
+    else if(this.user==null)
+    {
+      this.error="User does not exist. Please signUp or enter the correct username";
     }
     else {
       if (this.user.password == this.password) {
@@ -38,6 +48,7 @@ export class AuthenticationComponent implements OnInit {
       }
 
       else {
+        this.error = "Wrong password. Try Again";
         console.log("wrong password");
       }
     }

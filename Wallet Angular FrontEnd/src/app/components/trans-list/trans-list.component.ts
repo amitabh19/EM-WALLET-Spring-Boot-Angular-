@@ -40,11 +40,27 @@ export class TransListComponent implements OnInit {
   {
     this.trans.sort((n1,n2) => {
       if (n1.tTime > n2.tTime) {
-          return 1;
+          return -1;
       }
   
       if (n1.tTime < n2.tTime) {
+          return 1;
+      }
+  
+      return 0;
+  });
+    
+  }
+
+  sortAmount()
+  {
+    this.trans.sort((n1,n2) => {
+      if (n1.amount > n2.amount) {
           return -1;
+      }
+  
+      if (n1.amount < n2.amount) {
+          return 1;
       }
   
       return 0;

@@ -60,7 +60,7 @@ export class TransactionComponent implements OnInit {
 
     }
     else{
-      this.error = "user not found or insufficient balance or wrong amount";
+      this.success = "user not found or insufficient balance or wrong amount";
       this.router.navigate(['trans']);
     }
   }

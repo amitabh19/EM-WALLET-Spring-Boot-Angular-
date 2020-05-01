@@ -9,7 +9,8 @@
             <th>Account Number</th>
             <th>DOB</th>
             <th>Balance</th>
-            <th>Operations</th>
+            <th>Operation</th>
+            <th>Operation</th>
           </tr>
       </thead>
       <tbody>
@@ -22,8 +23,10 @@
           <td>{{ user.dob }}</td>
           <td>{{ user.balance }}</td>
           <td>
-            <button (click) = "deleteUser(user)">Delete</button>
-            <button (click) = "updateUser(user)">Edit</button>
+            <button class="btn btn-info" (click) = "seeTransactions(user)">User Transactions</button>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click) = "deleteUser(user)">Delete</button>
           </td>
         </tr>
       </tbody>

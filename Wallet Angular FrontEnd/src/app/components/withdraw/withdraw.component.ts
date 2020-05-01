@@ -34,7 +34,7 @@ export class WithdrawComponent implements OnInit {
 
   processForm()
   {
-    if(this.amount<=this.user.balance)
+    if(this.amount<=this.user.balance && this.amount>0)
     {
       let t = new Trans();
       t.sid = this.user.id;

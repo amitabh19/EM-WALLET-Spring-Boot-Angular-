@@ -5,12 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "transaction")
 public class Transaction {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idt_Sequence")
+	@SequenceGenerator(name = "idt_Sequence", sequenceName = "IDt_SEQ")
 	private long id;
 	private String txnId;
 	private double amount;

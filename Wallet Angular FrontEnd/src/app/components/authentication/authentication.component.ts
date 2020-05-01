@@ -23,9 +23,9 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit() {
 
     this.tusername = this.userService.username;
-    this.userService.getUsers().subscribe((data: any[]) => {
+    this.userService.getUsers2().then((data: any[]) => {
+      console.log(data);
       this.users = data;
-
     })
     
   }

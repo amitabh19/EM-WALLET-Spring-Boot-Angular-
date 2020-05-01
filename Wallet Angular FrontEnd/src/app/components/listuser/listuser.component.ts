@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
 import { UserService } from 'src/app/shared_service/user.service';
 import { Router } from '@angular/router';
+import { Transaction } from 'src/app/Transaction';
 
 @Component({
   selector: 'app-listuser',
@@ -13,6 +14,8 @@ export class ListuserComponent implements OnInit {
   public users:User[];
   public user:User;
   //private ser=[];
+  public trans:Transaction[];
+  public seeT:boolean;
   constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
@@ -56,6 +59,10 @@ export class ListuserComponent implements OnInit {
     this.router.navigate(['/sign']);
   }
 
+  seeTransactions(user)
+  {
+    this.userService.setter(user);
+    this.router.navigate(['/tlist']);
 
-
+  }
 }

@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @EntityScan(basePackages = "com.wallet.entities")
-@EnableJpaRepositories(basePackages = "com.wallet.repositories")
-@ComponentScan(basePackages = "com.wallet.controllers")
-@SpringBootApplication
+@EnableJpaRepositories(basePackages = {"com.wallet.repositories","com.wallet.dao"})
+@ComponentScan(basePackages = {"com.wallet.controllers", "com.wallet.service", "com.wallet.dao"})
+@SpringBootApplication()
 public class WalletBackendApplication {
 
 	public static void main(String[] args) {

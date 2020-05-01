@@ -35,7 +35,7 @@ export class DepositComponent implements OnInit {
   processForm()
   {
    
-    
+    if(this.amount>0){
       let t = new Trans();
       t.sid = this.user.id;
       t.rid = this.usr.id;
@@ -48,7 +48,9 @@ export class DepositComponent implements OnInit {
       }
       ) 
       //this.user = this.userService.getter();
-      this.success = "transaction successful";    
+      this.success = "transaction successful";   
+    } 
+    else{this.success="invalid amount";}
       
   }
   refresh()

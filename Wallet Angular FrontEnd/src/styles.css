@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+
+.about{
+	padding:40px;
+}
+.about h2{
+	text-align:center;
+	font-weight: bolder;
+}
+.about p{
+	padding:10px;
+	margin-top:20px;
+}
+.module{
+	background-color:#e9e9e9;
+	width:100%;
+	float:left;
+	padding-bottom:40px;
+}
+.moduleo{
+			background-color:white;
+			height:250px;
+			padding: 0;
+			margin-top:40px;
+			box-shadow: 5px 10px 10px #0000009e;
+}
+.module h2{
+	text-align:center;
+	padding:20px;
+	margin-top:20px;
+	font-weight:bolder;
+	
+}
+.modulei{
+			width:100%;
+			height:100%;
+			background-color:grey;
+			color:white;
+			display:none;
+			animation-name:slide;
+			animation-duration:0.5s;
+}
+.moduleo:hover .modulei{
+						display:block;
+}
+
+.moduleo:hover  h4{
+		display:none;
+}
+@keyframes slide{
+			0%{height:0%;}
+			100%{height:100%;}
+}
+.moduleo h4{
+	text-align:center;
+	font-weight:bolder;
+	padding:70px;
+}
+.modulei p{
+	padding:50px;
+	 color: whitesmoke;
+    font-weight: bolder;
+	text-align:center;
+	margin-top:10px;
+}

@@ -38,8 +38,7 @@ public class UserController {
 	@Autowired
 	private UserService userService ;
 	
-	
-	
+	 
 	@GetMapping("/users")
 	public List<Person> getUsers() {
 		return userService.getUsers();
@@ -52,63 +51,13 @@ public class UserController {
 
 	@GetMapping("/trans/{id}")
 	public Set<Transaction> getTrans(@PathVariable Long id) {
-		Optional<Person> p = userService.getUserById(id);
-		Person p1 = p.get();
-		return userService.getTrans(p1);
+		Person p = userService.getUserById(id).get();
+		return userService.getTrans(p);
 	}
 
 	@GetMapping("/user/{id}")
 	public Optional<Person> getUser(@PathVariable Long id) {
 		return userService.getUserById(id);
-	}
-
-	@GetMapping("/user/{sid}/{rid}/{amount}")
-	public String trasact(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Double amount) {
-		LocalDateTime d = LocalDateTime.now();
-		Optional<Person> p = userService.getUserById(sid);
-		Person p1 = p.get();
-		
-		Optional<Person> b = userService.getUserById(rid);
-		Person p2 = b.get();
-		p1.setBalance(p1.getBalance() - amount);
-		p2.setBalance(p2.getBalance() + amount);
-		String temp_d1 = stringCleaner(d.toString());
-		String txnId = "TX" + temp_d1 + p1.getId();
-		Transaction t = new Transaction(txnId, amount, d, "debit", p1.getId(), p2.getId(), p1.getBalance());
-		p1.addTransaction(t);
-		userService.updateUser(p1);
-		t.settType("credit");
-		t.setUpdatedPersonBal(p2.getBalance());
-		p2.addTransaction(t);
-		userService.updateUser(p2);
-		return "transaction success";
-	}
-
-	@GetMapping("/depo/{sid}/{amount}")
-	public String depo(@PathVariable Long sid, @PathVariable Double amount) {
-		LocalDateTime d = LocalDateTime.now();
-		Optional<Person> p = userService.getUserById(sid);
-		Person p1 = p.get();
-		p1.setBalance(p1.getBalance() + amount);
-		String temp_d1 = stringCleaner(d.toString());
-		String txnId = "TX" + temp_d1 + p1.getId();
-		Transaction t = new Transaction(txnId, amount, d, "self deposit", p1.getId(), p1.getId(), p1.getBalance());
-		p1.addTransaction(t);
-		userService.updateUser(p1);
-		return "transaction success";
-	}
-
-	@GetMapping("/with/{sid}/{amount}")
-	public String with(@PathVariable Long sid, @PathVariable Double amount) {
-		LocalDateTime d = LocalDateTime.now();
-		Person p1 = userService.getUserById(sid).get();
-		p1.setBalance(p1.getBalance() - amount);
-		String temp_d1 = stringCleaner(d.toString());
-		String txnId = "TX" + temp_d1 + p1.getId();
-		Transaction t = new Transaction(txnId, amount, d, "self withdraw", p1.getId(), p1.getId(), p1.getBalance());
-		p1.addTransaction(t);
-		userService.updateUser(p1);
-		return "transaction success";
 	}
 
 	@DeleteMapping("/user/{id}")
@@ -126,15 +75,17 @@ public class UserController {
 
 	@PostMapping("/addCustomer")
 	public Person addCustomer(@RequestBody Person c) {
-
 		String s1 = c.getName().charAt(0) + c.getName().charAt(1) + LocalDate.now().toString();
 		String s2 = stringCleaner(s1);
 		c.setAccNo(s2);
-		Person c1 = userService.addUser(c);
-		System.out.println("Customer added to datbase");
-		return c1;
+		return userService.addUser(c);
 	}
 
+	@PostMapping("/addTrans")
+	public Transaction addTrans(@RequestBody Transaction t) {
+		return userService.makeTrans(t);
+	}
+	
 	public String stringCleaner(String d)
 	{
 		String temp_d2 = d.replace(":", "");

@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -96,5 +97,15 @@ class DaoTests {
 		  assertEquals(p1.getTransactions(), dao.getTrans(p1));
 	 }
 	 
+	 @Rollback
+	 @Test void testMakeTrans()
+	 {
+		 Transaction t = new Transaction("txn", 500.0, LocalDateTime.now(), "self deposit", (long) 2, (long) 2, 30000);
+		 Transaction t1 = new Transaction("txn", 500.0, LocalDateTime.now(), "self withdraw", (long) 2, (long) 2, 30000);
+		 Transaction t2 = new Transaction("txn", 500.0, LocalDateTime.now(), "debit", (long) 2, (long) 1, 30000);
+		 assertEquals(dao.makeTrans(t), transRepo.save(t));
+		 assertEquals(dao.makeTrans(t1), transRepo.save(t1));
+		 assertEquals(dao.makeTrans(t2), transRepo.save(t2));
+	 }
 	 
 }

@@ -14,22 +14,21 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class UserService {
   baseUrl = "http://localhost:8090/walletBackendBackup/api";
-  //private headers = new HttpHeaders({'Content-type':'application/json'});
- /* 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }*/
+ 
   private user = new User();
   username:string;
-  private headers = new HttpHeaders({'Content-Type':'application/json'});
+ 
   private options = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
   }
   
   constructor(private http: HttpClient){}
 
+  addTrans(t:Transaction)
+  {
+    return this.http.post(this.baseUrl+"/addTrans",JSON.stringify(t),this.options); 
+
+  }
   
   addCustomer(customer:User){
     return this.http.post(this.baseUrl+"/addCustomer",JSON.stringify(customer),this.options); 
@@ -39,15 +38,8 @@ export class UserService {
    
     user.accNo="aaaa";
     console.log(user);
-    //return this.http.get(this.baseUrl+'/createuser'+'/'+ user.name+ '/'+ user.emailId+ '/'+ user.mobileNo+ '/'+ user.balance+ '/'+ user.dob+ '/'+user.accNo+ '/'+ user.username+ '/'+ user.password);
     return this.http.post(this.baseUrl+'/user',JSON.stringify(user),this.options);  
   }
- /*
-  getUsers()
-  {
-    return this.http.get((this.baseUrl+'/users'));
-  }
-  */
   
   getUsers():Observable<User[]>
   {
@@ -92,20 +84,7 @@ export class UserService {
     return this.http.put(this.baseUrl+'/user',JSON.stringify(user));
   }
 
-  performTrans(t:Trans)
-  {
-    return this.http.get(this.baseUrl+'/user/'+t.sid+'/'+t.rid+'/'+t.amount);
-  }
-
-  depo(t:Trans)
-  {
-    return this.http.get(this.baseUrl+'/depo/'+t.sid+'/'+t.amount);
-  }
-
-  with(t:Trans)
-  {
-    return this.http.get(this.baseUrl+'/with/'+t.sid+'/'+t.amount);
-  }
+ 
   
 
 }

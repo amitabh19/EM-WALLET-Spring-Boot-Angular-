@@ -21,4 +21,5 @@ public interface DaoInterface {
     public List<Person> getUsers();
     public List<Transaction> getTransaction();
     public Set<Transaction> getTrans(Person p);
+	public Transaction makeTrans(Transaction t);
 }

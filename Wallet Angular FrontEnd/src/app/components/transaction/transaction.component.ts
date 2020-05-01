@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
 import { UserService } from 'src/app/shared_service/user.service';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
-import { Trans } from 'src/app/Trans';
+import { Transaction } from 'src/app/Transaction';
 
 @Component({
   selector: 'app-transaction',
@@ -22,7 +21,8 @@ export class TransactionComponent implements OnInit {
   rmobileNo:string;
   error:string;
   success:string;
-  
+  tran= new Transaction();
+  date:Date;
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit() {
@@ -43,19 +43,24 @@ export class TransactionComponent implements OnInit {
     console.log(this.usr);
     if(this.usr!=null  && this.amount<=this.user.balance && this.amount>0)
     {
-      let t = new Trans();
-      t.sid = this.user.id;
-      t.rid = this.usr.id;
-      t.amount = this.amount;
-      this.userService.performTrans(t).subscribe( x => this.error = x.toString());
+    
+      this.tran.amount=this.amount;
+      this.tran.recieverId = this.usr.id;
+      this.tran.tType = "debit";
+      this.tran.txnId ="";
+      this.tran.tTime = "";
+      this.tran.updatedPersonBal=0;
+      this.tran.senderId = this.user.id;
+      console.log(this.tran);
+     
+      this.userService.addTrans(this.tran).subscribe(x => console.log(x));
       this.userService.getUsers().subscribe((data: any[])=>{
         console.log(data);
         this.users = data;
   
       }
       ) 
-      //this.user = this.userService.getter();
-      this.success = "transaction sucessfull";
+      this.success = "transaction sucessful";
       this.userService.getUserById(this.user.id).subscribe( x=> {this.user=x});
 
     }

@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
 		return dao.getTrans(p);
 	}
 
+	@Override
+	public Transaction makeTrans(Transaction t) {
+		// TODO Auto-generated method stub
+		return dao.makeTrans(t);
+	}
+
 }

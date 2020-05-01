@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Trans } from 'src/app/Trans';
 import { UserService } from 'src/app/shared_service/user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/user';
+import { Transaction } from 'src/app/Transaction';
 
 @Component({
   selector: 'app-withdraw',
@@ -18,6 +18,7 @@ export class WithdrawComponent implements OnInit {
   amount:number;
   error:string;
   success:string;
+  tran= new Transaction();
   
   constructor(private userService:UserService, private router:Router) { }
 
@@ -36,18 +37,18 @@ export class WithdrawComponent implements OnInit {
   {
     if(this.amount<=this.user.balance && this.amount>0)
     {
-      let t = new Trans();
-      t.sid = this.user.id;
-      t.rid = this.usr.id;
-      t.amount = this.amount;
-      this.userService.with(t).subscribe( x => this.error = x.toString());
+      this.tran.amount=this.amount;
+      this.tran.recieverId = this.user.id;
+      this.tran.tType = "self withdraw";
+      this.tran.txnId ="";
+      this.tran.tTime = "";
+      this.tran.updatedPersonBal=0;
+      this.tran.senderId = this.user.id;
+      console.log(this.tran);
+      this.userService.addTrans(this.tran).subscribe(x => console.log(x));
       
-      //this.user = this.userService.getter();
       this.success = "transaction successful";
        
-      //this.userService.setter(this.user);
-      console.log(this.user.balance);
-
     }
     else{
       this.success = "insufficient balance";

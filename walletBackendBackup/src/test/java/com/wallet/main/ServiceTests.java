@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -95,5 +96,15 @@ class ServiceTests {
 		  assertEquals(p1.getTransactions(), userService.getTrans(p1));
 	 }
 	 
+	 @Rollback
+	 @Test void testMakeTrans()
+	 {
+		 Transaction t = new Transaction("txn", 500.0, LocalDateTime.now(), "self deposit", (long) 2, (long) 2, 30000);
+		 Transaction t1 = new Transaction("txn", 500.0, LocalDateTime.now(), "self withdraw", (long) 2, (long) 2, 30000);
+		 Transaction t2 = new Transaction("txn", 500.0, LocalDateTime.now(), "debit", (long) 2, (long) 1, 30000);
+		 assertEquals(userService.makeTrans(t), transRepo.save(t));
+		 assertEquals(userService.makeTrans(t1), transRepo.save(t1));
+		 assertEquals(userService.makeTrans(t2), transRepo.save(t2));
+	 }
 	 
 }

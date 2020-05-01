@@ -2,8 +2,9 @@ export class Transaction
 {
     txnId:string;
     amount:number;
-    tTime:Date;
+    tTime:string;
     recieverId:number;
+    senderId:number;
     updatedPersonBal:number;
     tType:string;
 }

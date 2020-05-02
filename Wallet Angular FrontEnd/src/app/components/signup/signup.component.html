@@ -1,58 +1,148 @@
-
-<div class="moneyTransfer">
-    
-  <div class="container col-md-5 offset-md-3 transfer">    
-    <h4>Fill up the details to use EM Wallet</h4>  
-     <form  #signup2="ngForm" id="signup" (ngSubmit)="makeAccount(name2.value,phone2.value,amount2.value,username2.value,password2.value,email2.value, dob2.value)">
-      
-      <div class="form-group">
-        <label class="form-label">Enter the Customer Name:</label>
-        <input type="text" class="form-control" ngModel name= "name" #name2="ngModel" required [class.is-invalid]="name2.invalid && name2.touched">
-        <small [class.d-none]="name2.valid || name2.untouched" class="text-danger">Name is Mandatory</small>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Enter the Customer Email:</label>
-        <input type="email" class="form-control" ngModel name="email" #email2="ngModel" required [class.is-invalid]="email2.invalid && email2.touched">
-        <small [class.d-none]="email2.valid || email2.untouched" class="text-danger">Email is Mandatory</small>
-        <small [class.d-none]="emailBool" class="text-danger">Email ID already linked with another Wallet</small>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Enter the Phone Number:</label>
-        <input type="text" class="form-control" ngModel name="phoneNumber" #phone2="ngModel" required  pattern="^\d{10}$" [class.is-invalid]="phone2.invalid && phone2.touched">
-        <div *ngIf="phone2.errors && (phone2.invalid || phone2.touched)">
-          <small class="text-danger"[class.d-none]="phone2.valid||phone2.untouched" *ngIf="phone2.errors.required">Phone Number is mandatory</small>
-          <small class="text-danger" *ngIf="phone2.errors.pattern">Phone Number should contain 10 digits</small>
-      </div>
-      <small [class.d-none]="phoneBool" class="text-danger">Phone Number already linked with another Wallet</small>
-    </div>
-  
-      <div class="form-group">
-        <label class="form-label">Enter the Initial Balance:</label>
-        <input type="number" class="form-control" ngModel name="amount" #amount2="ngModel"   [class.is-invalid]="amount2.invalid && amount2.touched" required>
-        <small [class.d-none]="amount2.valid || amount2.untouched" class="text-danger">Amount is Mandatory</small>
-      </div>
-  
-      <div class="form-group">
-        <label class="form-label">Enter the Username:</label>
-        <input type="text" class="form-control" ngModel name="username" #username2="ngModel" required [class.is-invalid]="username2.invalid && username2.touched">
-        <small [class.d-none]="username2.valid || username2.untouched" class="text-danger">Username is Mandatory</small>
-        <small [class.d-none]="userBool" class="text-danger">Username already linked with another Wallet</small>
-      </div>
-      <div class="form-group">
-        <label class="form-label">DOB:</label>
-        <input max="2020-04-20" class="form-control" type="date" ngModel name="dob" #dob2="ngModel" [class.is-invalid]="dob2.invalid && dob2.touched" required> 
-      </div>
-  
-      <div class="form-group">
-        <label class="form-label">Enter the Password:</label>
-        <input type="password" class="form-control" ngModel name="password" #password2="ngModel" required [class.is-invalid]="password2.invalid && password2.touched">
-        <small [class.d-none]="password2.valid || password2.untouched" class="text-danger">Password is Mandatory</small>
-      </div>
-  
-      <input type="submit" class="btn btn-primary" value="Sign Up" [disabled]="signup2.form.invalid">
-    </form> 
-  </div>
-  </div>
-  
+<div class="container">
+	<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('name').touched ||
+		signupForm.get('name').dirty) &&
+		signupForm.get('name').errors)}">
+		<label class="col-sm-2 control-label" for="name">Name:</label>
+		<div class="col-sm-8">
+			<input id="name" formControlName="name" type="text" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('name').touched ||
+				signupForm.get('name').dirty) &&
+				signupForm.get('name').errors)">
+				<span *ngIf="signupForm.get('name').errors.required">
+				Name is required
+				</span>
+				<span *ngIf="signupForm.get('name').errors.minlength ||
+					signupForm.get('name').errors.maxlength">
+				Name must be between 2 and 20 characters long
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('email').touched ||
+		signupForm.get('email').dirty) &&
+		signupForm.get('email').errors)}">
+		<label class="col-sm-2 control-label" for="email">email:</label>
+		<div class="col-sm-8">
+			<input id="email" formControlName="email" type="email" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('email').touched ||
+				signupForm.get('email').dirty) &&
+				signupForm.get('email').errors)">
+				<span *ngIf="signupForm.get('email').errors.required">
+				Email Id is required
+				</span>
+				<span *ngIf="signupForm.get('email').errors?.email ">
+				Incorrect Email pattern
+				</span>
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="(signupForm.get('email').touched ||
+				signupForm.get('email').dirty) && !emailBool">
+				<span>
+				email id already linked with another wallet.
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('amount').touched ||
+		signupForm.get('amount').dirty) &&
+		signupForm.get('amount').errors)}">
+		<label class="col-sm-2 control-label" for="amount">Balance:</label>
+		<div class="col-sm-8">
+			<input id="amount" formControlName="amount" type="number" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('amount').touched ||
+				signupForm.get('amount').dirty) &&
+				signupForm.get('amount').errors)">
+				<span *ngIf="signupForm.get('amount').errors.required">
+				Initial balance is required
+				</span>
+				<span *ngIf="signupForm.get('amount').errors.min ">
+				Incorrect amount
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('mobileNo').touched ||
+		signupForm.get('mobileNo').dirty) &&
+		signupForm.get('mobileNo').errors)}">
+		<label class="col-sm-2 control-label" for="mobileNo">mobileNo:</label>
+		<div class="col-sm-8">
+			<input id="mobileNo" formControlName="mobileNo" type="text" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('mobileNo').touched ||
+				signupForm.get('mobileNo').dirty) &&
+				signupForm.get('mobileNo').errors)">
+				<span *ngIf="signupForm.get('mobileNo').errors.required">
+				mobileNo is required
+				</span>
+				<span *ngIf="(signupForm.get('mobileNo').errors.minlength ||
+					signupForm.get('mobileNo').errors.maxlength)">Mobile number should be 10 digits.
+				</span><br>
+				<span *ngIf="(signupForm.get('mobileNo').errors.pattern)">Only numbers allowed</span>
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="(signupForm.get('mobileNo').touched ||
+				signupForm.get('mobileNo').dirty) && !phoneBool">
+				<span>
+				Mobile No already linked with another wallet.
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="dob">DOB:</label>
+		<div class="col-sm-8">
+			<input max="2020-05-03" class="form-control" formControlName="dob" type="date" name="dob" required>
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('dob').touched ||
+				signupForm.get('dob').dirty) &&
+				signupForm.get('dob').errors)">
+				<span *ngIf="signupForm.get('dob').errors.required">
+				DOB is required
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('username').touched ||
+		signupForm.get('username').dirty) &&
+		signupForm.get('username').errors)}">
+		<label class="col-sm-2 control-label" for="username">username:</label>
+		<div class="col-sm-8">
+			<input id="username" formControlName="username" type="text" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('username').touched ||
+				signupForm.get('username').dirty) &&
+				signupForm.get('username').errors)">
+				<span *ngIf="signupForm.get('username').errors.required">
+				username is required
+				</span>
+				<span *ngIf="(signupForm.get('username').errors.minlength ||
+					signupForm.get('username').errors.maxlength)">username should atleast be 3 characters long.
+				</span>
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="(signupForm.get('username').touched ||
+				signupForm.get('username').dirty) && !userBool">
+				<span>
+				Username already linked with another wallet.
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('password').touched ||
+		signupForm.get('password').dirty) &&
+		signupForm.get('password').errors)}">
+		<label class="col-sm-2 control-label" for="password">password:</label>
+		<div class="col-sm-8">
+			<input id="password" formControlName="password" type="password" class="form-control">
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('password').touched ||
+				signupForm.get('password').dirty) &&
+				signupForm.get('password').errors)">
+				<span *ngIf="signupForm.get('password').errors.required">
+				password is required
+				</span>
+				<span *ngIf="(signupForm.get('password').errors.minlength ||
+					signupForm.get('password').errors.maxlength)">password should atleast be 8 characters long.
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-success " [disabled]="!signupForm.valid">Submit</button>
+	</div>
+	</form>
+</div>

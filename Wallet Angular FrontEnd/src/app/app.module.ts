@@ -7,7 +7,7 @@ import { ListuserComponent } from './components/listuser/listuser.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserService } from './shared_service/user.service';
 import { HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { MainComponent } from './components/main/main.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { UserOpsComponent } from './components/user-ops/user-ops.component';
@@ -34,7 +34,8 @@ import { SignupComponent } from './components/signup/signup.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

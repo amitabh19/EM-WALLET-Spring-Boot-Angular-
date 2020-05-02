@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
 import { UserService } from 'src/app/shared_service/user.service';
 import { Router } from '@angular/router';
-import { Form, FormGroupName } from '@angular/forms';
-import { timeout } from 'rxjs/operators';
+import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   users:User[];
   user=new User();
-  name:string;
+  //name:string;
   id:number;
   accountBool:Boolean= true;
   phoneBool:Boolean=true;
@@ -22,30 +21,42 @@ export class SignupComponent implements OnInit {
   emailBool:Boolean=true;
   mobile:string;
   user1 = new User();
-  constructor(private userService:UserService, private router:Router) { }
+  signupForm : FormGroup;
+  constructor(private userService:UserService, private router:Router,private fb: FormBuilder) { }
 
   ngOnInit() {
+    
+    this.signupForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
+      amount: ['', [Validators.required, Validators.min(0)]],
+      mobileNo: ['',[Validators.required,Validators.pattern("[0-9]*"), Validators.minLength(10), Validators.maxLength(10)]],
+      dob: [''],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      password: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
+
+    });
+
     this.userService.getUsers().subscribe((data: any[])=>{
       console.log(data);
       this.users = data;
 
     }
-    ) 
+    );
   }
-
- 
-  makeAccount(name,mobileNo,amount,username,password,email,dob){
+  onSubmit()
+  {
     let valid:boolean
     let id:Number
     for(let c of this.users){
         id = c.id;
-    if(c.username == username){
+    if(c.username == this.signupForm.value.username){
       console.log("Username Already Taken");
       valid = false;
       this.userBool= false;
       break;
     }
-    else if(c.emailId == email){
+    else if(c.emailId == this.signupForm.value.email){
       console.log("Email Number Already Taken");
       valid = false;
       this.emailBool=false;
@@ -53,7 +64,7 @@ export class SignupComponent implements OnInit {
     }
     
     
-    else if(c.mobileNo == mobileNo){
+    else if(c.mobileNo == this.signupForm.value.mobileNo){
       console.log("Phone Number Already Taken");
       valid = false;
       this.phoneBool=false;
@@ -65,17 +76,17 @@ export class SignupComponent implements OnInit {
   }
   if(valid==true){
 
-  console.log(email + " "+name+" "+" "+mobileNo+" "+amount+" "+username+ " "+password);
+  console.log(this.signupForm.value.email + " "+name+" "+" "+this.signupForm.value.mobileNo+" "+this.signupForm.value.amount+" "+this.signupForm.value.username+ " "+this.signupForm.value.password);
   this.user.id=undefined;
   this.user.accNo=undefined;
-  this.user.name=name;
-  this.user.mobileNo=mobileNo;
-  this.user.balance=amount;
-  this.user.username=username;
-  this.user.password=password;
-  this.user.dob=dob;
-  this.user.emailId=email;
-  this.mobile=mobileNo;
+  this.user.name=this.signupForm.value.name;
+  this.user.mobileNo=this.signupForm.value.mobileNo;
+  this.user.balance=this.signupForm.value.amount;
+  this.user.username=this.signupForm.value.username;
+  this.user.password=this.signupForm.value.password;
+  this.user.dob=this.signupForm.value.dob;
+  this.user.emailId=this.signupForm.value.email;
+  this.mobile=this.signupForm.value.mobileNo;
 
   this.userService.addCustomer(this.user).subscribe(x => console.log(x));
   //this.userService.setter(this.user);
@@ -96,4 +107,4 @@ export class SignupComponent implements OnInit {
 
 
 } 
-}
+ }

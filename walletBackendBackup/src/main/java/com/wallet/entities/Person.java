@@ -48,7 +48,6 @@ public class Person {
 	private Set<Transaction> transactions;
 
 	public Person() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Person(String emailId, String mobileNo, String name, @Min(0) double balance, LocalDate dob, String accNo,

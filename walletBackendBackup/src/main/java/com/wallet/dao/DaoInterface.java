@@ -12,12 +12,11 @@ import com.wallet.entities.Person;
 import com.wallet.entities.Transaction;
 
 @Repository
-@AutoConfigurationPackage
 public interface DaoInterface {
 	public Person addUser(Person p);
 	public Optional<Person> getUserById(Long id);
     public Person updateUser(Person p);
-    public void deleteUser(Person p);
+    public boolean deleteUser(Person p);
     public List<Person> getUsers();
     public List<Transaction> getTransaction();
     public Set<Transaction> getTrans(Person p);

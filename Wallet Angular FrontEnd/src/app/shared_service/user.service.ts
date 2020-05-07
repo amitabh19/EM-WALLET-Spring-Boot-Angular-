@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import {  HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-//import {Http,Response,Headers,RequestOptions} from '@angular/http';
+import {  HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../user';
 import { Observable } from 'rxjs';
 import {  Trans } from '../Trans';
 import { Transaction } from '../Transaction';
 import { map, catchError } from 'rxjs/operators';
-//import { RequestOptions } from 'https';
-//import {Http,Response,Headers,RequestOptions} from '@angular/http';
+import { throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,25 +25,25 @@ export class UserService {
 
   addTrans(t:Transaction)
   {
-    return this.http.post(this.baseUrl+"/addTrans",JSON.stringify(t),this.options); 
+    return this.http.post(this.baseUrl+"/addTrans",JSON.stringify(t),this.options).pipe(catchError(this.errorHandler)); 
 
   }
   
   addCustomer(customer:User){
-    return this.http.post(this.baseUrl+"/addCustomer",JSON.stringify(customer),this.options); 
+    return this.http.post(this.baseUrl+"/addCustomer",JSON.stringify(customer),this.options).pipe(catchError(this.errorHandler)); 
   }
 
  createUser(user:User){
    
     user.accNo="aaaa";
     console.log(user);
-    return this.http.post(this.baseUrl+'/user',JSON.stringify(user),this.options);  
+    return this.http.post(this.baseUrl+'/user',JSON.stringify(user),this.options).pipe(catchError(this.errorHandler));  
   }
   
   getUsers():Observable<User[]>
   {
     
-    return this.http.get<User[]>(this.baseUrl+'/users');
+    return this.http.get<User[]>(this.baseUrl+'/users').pipe(catchError(this.errorHandler)); 
   }
 
   getUsers2(): Promise<any>
@@ -54,21 +53,21 @@ export class UserService {
 
   getTransById(id:number):Observable<Transaction[]>
   {
-    return this.http.get<Transaction[]>(this.baseUrl+'/trans/'+id);
+    return this.http.get<Transaction[]>(this.baseUrl+'/trans/'+id).pipe(catchError(this.errorHandler)); ;
   }
 
   getUserById(id:number):Observable<User>
   {
-    return this.http.get<User>(this.baseUrl+'/user/'+id);
+    return this.http.get<User>(this.baseUrl+'/user/'+id).pipe(catchError(this.errorHandler)); ;
   }
   
   deleteUserById(id:number)
   {
-    return this.http.delete(this.baseUrl+'/user/'+id);
+    return this.http.delete(this.baseUrl+'/user/'+id).pipe(catchError(this.errorHandler)); ;
   }
 
   errorHandler(error:Response){
-    return Observable.throw(error||"SERVER ERROR");  
+    return throwError(error||"SERVER ERROR");  
     }
 
   setter(user:User)
@@ -81,7 +80,7 @@ export class UserService {
   }   
    updateUser(user:User){
 
-    return this.http.put(this.baseUrl+'/user',JSON.stringify(user));
+    return this.http.put(this.baseUrl+'/user',JSON.stringify(user)).pipe(catchError(this.errorHandler)); ;
   }
 
  

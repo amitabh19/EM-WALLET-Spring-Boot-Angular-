@@ -24,7 +24,6 @@ const routes: Routes = [
   {path:'tlist', component:TransListComponent},
   {path:'sign', component:SignupComponent},
 
-
 ];
 
 @NgModule({

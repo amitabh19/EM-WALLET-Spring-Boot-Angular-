@@ -5,18 +5,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.wallet.controllers.UserController;
 import com.wallet.entities.Person;
 import com.wallet.entities.Transaction;
 import com.wallet.repositories.TransactionRepository;
 import com.wallet.repositories.UserRepository;
+import com.wallet.service.UserServiceImpl;
 
 @Repository
-@AutoConfigurationPackage
 public class DaoInterfaceImpl implements DaoInterface {
 
 	@Autowired
@@ -25,44 +28,55 @@ public class DaoInterfaceImpl implements DaoInterface {
 	@Autowired
 	public TransactionRepository transactionRepository;
 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@Override
 	public Person addUser(Person p) {
+		logger.trace("addUser() method in dao impl class is accessed");
 		return userRepository.save(p);
 	}
 
 	@Override
 	public Optional<Person> getUserById(Long id) {
+		logger.trace("getUserById() method in dao impl class is accessed");
 		return userRepository.findById(id);
 	}
 
 	@Override
 	public Person updateUser(Person p) {
+		logger.trace("updateUser() method in dao impl class is accessed");
 		return userRepository.save(p);
 	}
 
 	@Override
-	public void deleteUser(Person p) {
+	public boolean deleteUser(Person p) {
+		logger.trace("deleteUser() method in dao impl class is accessed");
 		userRepository.deleteById(p.getId());
+		return true;
 	}
 
 	@Override
 	public List<Person> getUsers() {
+		logger.trace("getUsers() method in dao impl class is accessed");
 		return userRepository.findAll();
 	}
 
 	@Override
 	public List<Transaction> getTransaction() {
+		logger.trace("getTransaction() method in dao impl class is accessed");
 		return transactionRepository.findAll();
 	}
 
 	@Override
 	public Set<Transaction> getTrans(Person p) {
+		logger.trace("getTrans() method in dao impl class is accessed");
 		return p.getTransactions();
 	}
 	
 	@Override
 	public Transaction makeTrans(Transaction t)
 	{
+		logger.trace("makeTrans() method in service class is accessed");
 		LocalDateTime d = LocalDateTime.now();
 		if(t.gettType().equals("debit"))
 		{

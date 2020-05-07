@@ -3,6 +3,7 @@ package com.wallet.main;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
@@ -80,8 +81,8 @@ class ServiceTests {
 	  @Rollback
 	  @Test void testDeleteUser() {
 		  Person p1 = userService.getUserById((long) 2).get();
-		  userService.deleteUser(p1);
-		  assertNull(userRepo.getOne((long) 2).getId());
+		  
+		  assertTrue(userService.deleteUser(p1));
 	  
 	  }
 	 

@@ -32,6 +32,14 @@ export class AuthenticationComponent implements OnInit {
 
   processForm() {
     this.user = this.users.find(x => x.username == this.username);
+    if(this.user == null)
+    {
+      this.userService.getUsers2().then((data: any[]) => {
+        this.users = data;
+      });
+      this.user = this.users.find(x => x.username==this.tusername);
+       
+    }
     
     if (this.username == "admin" && this.password == "admin") {
       this.router.navigate(['lu']);

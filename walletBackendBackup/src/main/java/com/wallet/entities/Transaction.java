@@ -28,7 +28,6 @@ public class Transaction {
 
 	public Transaction() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Transaction(String txnId, double amount, LocalDateTime tTime, String tType, long senderId, long recieverId,

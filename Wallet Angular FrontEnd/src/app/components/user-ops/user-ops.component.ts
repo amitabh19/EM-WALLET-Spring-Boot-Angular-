@@ -26,6 +26,8 @@ export class UserOpsComponent implements OnInit {
     }
     deleteAccount()
     {
+      if (confirm("Do you want to delete this account?"))
+      {
       this.userService.deleteUserById(this.user.id).subscribe(
         (u) => {
           this.users.splice(this.users.indexOf(this.user,1));
@@ -34,6 +36,10 @@ export class UserOpsComponent implements OnInit {
       )
       console.log("done");
       this.router.navigate(['']);
+    }
+    else{
+      console.log("no");
+    }
       
     }
 

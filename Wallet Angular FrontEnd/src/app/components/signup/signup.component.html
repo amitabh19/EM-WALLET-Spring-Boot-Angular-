@@ -6,8 +6,7 @@
 		<label class="col-sm-2 control-label" for="name">Name:</label>
 		<div class="col-sm-8">
 			<input id="name" formControlName="name" type="text" class="form-control">
-			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('name').touched ||
-				signupForm.get('name').dirty) &&
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('name').touched ) &&
 				signupForm.get('name').errors)">
 				<span *ngIf="signupForm.get('name').errors.required">
 				Name is required
@@ -19,14 +18,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('email').touched ||
-		signupForm.get('email').dirty) &&
-		signupForm.get('email').errors)}">
+	<div class="form-group" [ngClass]="{'has-error': ((signupForm.get('email').touched) &&
+		signupForm.get('email').invalid)}">
 		<label class="col-sm-2 control-label" for="email">email:</label>
 		<div class="col-sm-8">
 			<input id="email" formControlName="email" type="email" class="form-control">
-			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('email').touched ||
-				signupForm.get('email').dirty) &&
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('email').touched ) &&
 				signupForm.get('email').errors)">
 				<span *ngIf="signupForm.get('email').errors.required">
 				Email Id is required
@@ -67,8 +64,7 @@
 		<label class="col-sm-2 control-label" for="mobileNo">mobileNo:</label>
 		<div class="col-sm-8">
 			<input id="mobileNo" formControlName="mobileNo" type="text" class="form-control">
-			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('mobileNo').touched ||
-				signupForm.get('mobileNo').dirty) &&
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('mobileNo').touched ) &&
 				signupForm.get('mobileNo').errors)">
 				<span *ngIf="signupForm.get('mobileNo').errors.required">
 				mobileNo is required
@@ -105,15 +101,15 @@
 		<label class="col-sm-2 control-label" for="username">username:</label>
 		<div class="col-sm-8">
 			<input id="username" formControlName="username" type="text" class="form-control">
-			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('username').touched ||
-				signupForm.get('username').dirty) &&
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('username').touched) &&
 				signupForm.get('username').errors)">
 				<span *ngIf="signupForm.get('username').errors.required">
 				username is required
 				</span>
-				<span *ngIf="(signupForm.get('username').errors.minlength ||
-					signupForm.get('username').errors.maxlength)">username should atleast be 3 characters long.
+				<span *ngIf="(signupForm.get('username').errors.minlength)">username should atleast be 3 characters long.
 				</span>
+				<span *ngIf="signupForm.get('username').errors.maxlength">username should not be more than 10 characters</span>
+
 			</div>
 			<div class="alert alert-danger" role="alert" *ngIf="(signupForm.get('username').touched ||
 				signupForm.get('username').dirty) && !userBool">
@@ -129,15 +125,14 @@
 		<label class="col-sm-2 control-label" for="password">password:</label>
 		<div class="col-sm-8">
 			<input id="password" formControlName="password" type="password" class="form-control">
-			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('password').touched ||
-				signupForm.get('password').dirty) &&
+			<div class="alert alert-danger" role="alert" *ngIf="((signupForm.get('password').touched ) &&
 				signupForm.get('password').errors)">
 				<span *ngIf="signupForm.get('password').errors.required">
 				password is required
 				</span>
-				<span *ngIf="(signupForm.get('password').errors.minlength ||
-					signupForm.get('password').errors.maxlength)">password should atleast be 8 characters long.
+				<span *ngIf="(signupForm.get('password').errors.minlength)">password should atleast be 8 characters long.
 				</span>
+				<span *ngIf="signupForm.get('password').errors.maxlength">password should not be more than 20 characters</span>
 			</div>
 		</div>
 	</div>

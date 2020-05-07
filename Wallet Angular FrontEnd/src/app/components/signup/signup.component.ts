@@ -89,13 +89,7 @@ export class SignupComponent implements OnInit {
   this.mobile=this.signupForm.value.mobileNo;
 
   this.userService.addCustomer(this.user).subscribe(x => console.log(x));
-  //this.userService.setter(this.user);
-  //console.log(this.user);
   console.log("inserted");
-  //timeout(3000);
-  //this.users.push(this.user);
-  //this.userService.getUserById(this.user.id).subscribe(x => this.user=x);
-  
   this.userService.username = this.user.username;
   
   this.router.navigate(['au']);

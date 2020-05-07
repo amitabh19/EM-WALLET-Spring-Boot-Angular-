@@ -28,7 +28,7 @@ import { SignupComponent } from './components/signup/signup.component';
     DepositComponent,
     WithdrawComponent,
     TransListComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wallet.controllers.UserController;
 import com.wallet.entities.Person;
 import com.wallet.entities.Transaction;
+import com.wallet.exceptions.ListNotFoundException;
+import com.wallet.exceptions.UserNotFoundException;
 import com.wallet.repositories.TransactionRepository;
 import com.wallet.repositories.UserRepository;
 
@@ -32,26 +34,48 @@ public class ControllerTest {
 	
 	@Test
 	public void testGetUsers() {
-		assertEquals(uc.getUsers(),ur.findAll());
+		try {
+			assertEquals(uc.getUsers(),ur.findAll());
+		} catch (ListNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetTrans() {
-		assertEquals(uc.getTrans(),tr.findAll());
+		try {
+			assertEquals(uc.getTrans(),tr.findAll());
+		} catch (ListNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetUser() {
-		assertEquals(uc.getUser((long) 2), ur.findById((long) 2));
+		try {
+			assertEquals(uc.getUser((long) 1), ur.findById((long) 1).get());
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
+	@Rollback
 	public void testUpdateUser() {
-		  Person p2 = ur.getOne((long) 2);
+		  Person p2 = null;
+		try {
+			p2 = uc.getUser((long) 1);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		  String name = "newTestName";
 		  p2.setName(name);
 		  uc.updateUser(p2);
-		  p2 = ur.getOne((long) 2);
+		  p2 = ur.getOne((long) 1);
 		  assertEquals(name, p2.getName());	}
     
 	@Rollback
@@ -73,4 +97,18 @@ public class ControllerTest {
 		 assertEquals(uc.addTrans(t1), tr.save(t1));
 		 assertEquals(uc.addTrans(t2), tr.save(t2));
 	 }
+	@Rollback
+	 @Test 
+	 public void testDeleteUser()
+	 {
+		Person p = null;
+		try {
+			p = uc.getUser((long)2);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(uc.deleteUser(p.getId()));
+	 }
+	
 }

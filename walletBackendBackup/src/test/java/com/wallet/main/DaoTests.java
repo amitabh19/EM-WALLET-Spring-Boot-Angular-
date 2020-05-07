@@ -3,6 +3,7 @@ package com.wallet.main;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -64,25 +65,25 @@ class DaoTests {
 		  List<Person> p = userRepo.findAll();
 		  List<Person> p1 = dao.getUsers();
 		  assertEquals(p, p1);
+		  assertNotNull(p1);
 		  
 	  }
 	
 	  @Rollback
 	  @Test void testUpdateUser() 
 	  {
-		  Person p2 = userRepo.getOne((long) 2);
+		  Person p2 = dao.getUserById((long) 2).get();
 		  String name = "newTestName";
 		  p2.setName(name);
 		  dao.updateUser(p2);
-		  p2 = userRepo.getOne((long) 2);
+		  p2 = dao.getUserById((long) 2).get();
 		  assertEquals(name, p2.getName());
 	   }
 	
 	  @Rollback
 	  @Test void testDeleteUser() {
 		  Person p1 = dao.getUserById((long) 2).get();
-		  dao.deleteUser(p1);
-		  assertNull(userRepo.getOne((long) 2).getId());
+		  assertTrue(dao.deleteUser(p1));
 	  
 	  }
 	 

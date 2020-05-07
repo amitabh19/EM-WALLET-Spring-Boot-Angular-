@@ -13,7 +13,6 @@ export class ListuserComponent implements OnInit {
 
   public users:User[];
   public user:User;
-  //private ser=[];
   public trans:Transaction[];
   public seeT:boolean;
   constructor(private userService: UserService, private router:Router) { }
@@ -23,29 +22,33 @@ export class ListuserComponent implements OnInit {
       console.log(data);
       this.users = data;
 
+    },(error)=>{
+      console.log(error);
     }
     ) 
-    this.userService.getUserById(1).subscribe(u => 
-      {
-        this.user = u
-        console.log(this.user);      
-      });
     
 
   }
   getUser(id:number)
   {
-    this.userService.getUserById(id).subscribe(u => this.user = u);
+    this.userService.getUserById(id).subscribe(u => {this.user = u},(error)=>{
+      console.log(error);
+    });
   }
 
   deleteUser(user)
   {
-    this.userService.deleteUserById(user.id).subscribe(
-      (u) => {
-        this.users.splice(this.users.indexOf(user,1));
-      },
-      
-    )
+    if (confirm("Do you want to delete this account?")) {
+      this.userService.deleteUserById(user.id).subscribe(
+        (u) => {
+          this.users.splice(this.users.indexOf(user,1));
+        },
+        
+      )
+    } else {
+      console.log("no");
+    }
+    
   }
 
   updateUser(user)

@@ -60,7 +60,7 @@ export class TransactionComponent implements OnInit {
   
       }
       ) 
-      this.success = "transaction sucessful";
+      this.success = "transaction successful";
       this.userService.getUserById(this.user.id).subscribe( x=> {this.user=x});
 
     }
